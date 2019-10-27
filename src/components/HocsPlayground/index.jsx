@@ -7,7 +7,6 @@ import ButtonN3 from './Buttons/ButtonN3';
 import ButtonN4 from './Buttons/ButtonN4';
 import ButtonN5 from './Buttons/ButtonN5';
 
-
 const DescriptionList = () => (
     <ol>
         <li>Кнопка small размера цвета primary, в тексте кнопки слева от текста расположен счетчик кликов на кнопку, каждый клик по кнопке увеличивает счетчик на одну единицу. Каждый нечетный по счетчику клик закрашивает оба круга в зеленый, каждый четный – оба круга в серый.</li>
@@ -38,7 +37,9 @@ const HocsPlayground = () => {
                     Внешний в красный
                 </ButtonN2>
 
-                <ButtonN3 setOuterColor={setOuterColor} setInnerColor={setInnerColor}>Четные/нечетные клики</ButtonN3>
+                <ButtonN3 setOuterColor={setOuterColor} setInnerColor={setInnerColor}>
+                    Чётные/нечётные клики
+                </ButtonN3>
 
                 <ButtonN4 setOuterColor={setOuterColor} setInnerColor={setInnerColor}>Уходящий counter</ButtonN4>
 

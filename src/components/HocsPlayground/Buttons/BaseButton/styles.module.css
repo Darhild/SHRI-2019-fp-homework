@@ -54,3 +54,51 @@
     color: white;
     background-color: dimgray;
 }
+
+.buttonRotate30 {
+    transform: rotate(-30);
+}
+
+.buttonRotate60 {
+    transform: rotate(-60);
+}
+
+.buttonRotate90 {
+    transform: rotate(-90);
+}
+
+.buttonRotate120 {
+    transform: rotate(-120);
+}
+
+.buttonRotate150 {
+    transform: rotate(-150);
+}
+
+.buttonRotate180 {
+    transform: rotate(-180);
+}
+
+.buttonRotate210 {
+    transform: rotate(-210);
+}
+
+.buttonRotate240 {
+    transform: rotate(-240);
+}
+
+.buttonRotate270 {
+    transform: rotate(-270);
+}
+
+.buttonRotate300 {
+    transform: rotate(-300);
+}
+
+.buttonRotate330 {
+    transform: rotate(-330);
+}
+
+.buttonRotate360 {
+    transform: rotate(-360);
+}

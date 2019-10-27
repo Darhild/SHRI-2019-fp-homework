@@ -19,7 +19,7 @@
  * const lengthGreaterThenOne = x => x.length > 1;
  */
 
-import {replace, length, compose, test} from 'ramda';
+import {replace, curry, length, tap, compose, test, allPass, anyPass} from 'ramda';
 
 const replaceNumbers = replace(/[^0-9]/g, '');
 
@@ -27,40 +27,56 @@ const getNumbersCount = compose(length, replaceNumbers);
 
 const containsOnlyEng = test(/^[a-zA-Z0-9.+]+$/);
 
-
 /**
  * Функции для проверки выполнения условий с количеством цифр в строке
  */
+ const numsMoreThenNum = (x, {nums: num}) => x > num; 
+ const numLessThenNum = (x, {nums: num}) => x < num;
+ const composeNumsMoreThenNum = compose(curry(numsMoreThenNum), getNumbersCount);
+ const composeNumsLessThenNum = compose(curry(numLessThenNum), getNumbersCount);
 
 /**
  * Функции для проверки выполнения условий с длиной строки
- */
+ */  
+ const lengthGreaterThenNum = (x, {length: num}) => x > num; 
+ const lengthLessThenNum = (x, {length: num}) => x < num;
+ const composeLengthGreaterThenNum = compose(curry(lengthGreaterThenNum), length);
+ const composeLengthLessThenNum = compose(curry(lengthLessThenNum), length);
+ const composeLengthGreaterThenNumEng = compose(composeLengthGreaterThenNum, tap(console.log), length, containsOnlyEng);
+ const composeLengthLessThenNumEng = compose(containsOnlyEng, composeLengthLessThenNum);
 
 /**
  * Функции для проверки наличия конкретного символа в строке
  */
-
-
+ const containsNum = (str, {num: x}) => str.indexOf(x) !== -1;
+ const doesntContainNum = (str, {num: x}) => str.indexOf(x) === -1;
+ const curriedContainsNum = curry(containsNum);
+ const curriedDoesntContainNum = curry(doesntContainNum);
+ 
 // 1. Длина < 5 и кол-во цифр > 2 шт.
-export const validateFieldN1 = () => false;
+
+export const validateFieldN1 = (str) => allPass([composeLengthLessThenNum(str), composeNumsMoreThenNum(str)])({length: 5, nums: 2});
 
 // 2. Длина < 5 и кол-во цифр < 2 шт.
-export const validateFieldN2 = () => false;
+export const validateFieldN2 = (str) => allPass([composeLengthLessThenNum(str), composeNumsLessThenNum(str)])({length: 5, nums: 2});
 
 // 3. Длина > 5 или кол-во цифр > 1 шт.
-export const validateFieldN3 = () => false;
+export const validateFieldN3 = (str) => anyPass([composeLengthGreaterThenNum(str), composeNumsMoreThenNum(str)])({length: 5, nums: 1});
 
 // 4. Длина < 10 и кол-во цифр > 2 шт. и одна из цифр равна "4"
-export const validateFieldN4 = () => false;
+export const validateFieldN4 = (str) => allPass([composeLengthLessThenNum(str), composeNumsMoreThenNum(str), curriedContainsNum(str)])({length: 10, nums: 2, num: 4});
 
 // 5. Длина < 10 и кол-во цифр > 1 шт. и ни одна из цифр не равна "4"
-export const validateFieldN5 = () => false;
+export const validateFieldN5 = (str) => allPass([composeLengthLessThenNum(str), composeNumsMoreThenNum(str), curriedDoesntContainNum(str)])({length: 10, nums: 1, num: 4});
 
 // 6. Длина > 5, или одна из цифр равна "7"
-export const validateFieldN6 = () => false;
+export const validateFieldN6 = (str) => anyPass([composeLengthGreaterThenNum(str), curriedContainsNum(str)])({length: 5, num: 7});
 
 // 7. Длина > 8 и кол-во цифр > 3 шт. и только англ
-export const validateFieldN7 = () => false;
+export const validateFieldN7 = (str) => {
+  console.log(containsOnlyEng(str));
+  return allPass([composeLengthGreaterThenNum(str), composeNumsMoreThenNum(str)])({length: 8, nums: 3});
+}
 
 // 8. Кол-во цифр < 5 шт. или только англ или одна из цифр равна "7"
 export const validateFieldN8 = () => false;

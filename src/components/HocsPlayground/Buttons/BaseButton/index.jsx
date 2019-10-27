@@ -22,6 +22,7 @@ const BaseButton = ({
     onMouseOn,
     children,
 }) => {
+
     return (
         <button onMouseUp={onMouseOn} onClick={onClick} className={getButtonClassName(size, color)}>
             {children}
