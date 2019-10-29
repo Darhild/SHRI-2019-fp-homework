@@ -53,7 +53,7 @@ const containsOnlyEng = test(/^[a-zA-Z0-9.+]+$/);
  
 // 1. Длина < 5 и кол-во цифр > 2 шт.
 
-export const validateFieldN1 = (str) => allPass([composeLengthLessThenNum, composeNumsMoreThenNum])({str, length: 5, nums: 2});
+export const validateFieldN1 = (str) => allPass([composeLengthLessThenNum(str), composeNumsMoreThenNum(str)])({length: 5, nums: 2});
 
 // 2. Длина < 5 и кол-во цифр < 2 шт.
 export const validateFieldN2 = (str) => allPass([composeLengthLessThenNum(str), composeNumsLessThenNum(str)])({length: 5, nums: 2});
@@ -71,7 +71,7 @@ export const validateFieldN5 = (str) => allPass([composeLengthLessThenNum(str), 
 export const validateFieldN6 = (str) => anyPass([composeLengthGreaterThenNum(str), curriedContainsNum(str)])({length: 5, num: 7});
 
 // 7. Длина > 8 и кол-во цифр > 3 шт. и только англ
-export const validateFieldN7 = (str) =>  allPass([composeLengthGreaterThenNum(str)])({length: 8, nums: 3}) && containsOnlyEng(str);
+export const validateFieldN7 = (str) =>  allPass([composeLengthGreaterThenNum(str), composeNumsMoreThenNum(str)])({length: 8, nums: 3}) && containsOnlyEng(str);
 
 // 8. Кол-во цифр < 5 шт. или только англ или одна из цифр равна "7"
 export const validateFieldN8 = (str) => anyPass([composeNumsLessThenNum(str), curriedContainsNum(str)])({length: 5, num: 7}) || containsOnlyEng(str);
