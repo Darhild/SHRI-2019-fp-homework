@@ -55,50 +55,55 @@
     background-color: dimgray;
 }
 
+.buttonRotate {
+    display: inline-block;
+    transform-origin: center center;
+}
+
 .buttonRotate30 {
-    transform: rotate(-30);
+    transform: rotate(-30deg);
 }
 
 .buttonRotate60 {
-    transform: rotate(-60);
+    transform: rotate(-60deg);
 }
 
 .buttonRotate90 {
-    transform: rotate(-90);
+    transform: rotate(-90deg);
 }
 
 .buttonRotate120 {
-    transform: rotate(-120);
+    transform: rotate(-120deg);
 }
 
 .buttonRotate150 {
-    transform: rotate(-150);
+    transform: rotate(-150deg);
 }
 
 .buttonRotate180 {
-    transform: rotate(-180);
+    transform: rotate(-180deg);
 }
 
 .buttonRotate210 {
-    transform: rotate(-210);
+    transform: rotate(-210deg);
 }
 
 .buttonRotate240 {
-    transform: rotate(-240);
+    transform: rotate(-240deg);
 }
 
 .buttonRotate270 {
-    transform: rotate(-270);
+    transform: rotate(-270deg);
 }
 
 .buttonRotate300 {
-    transform: rotate(-300);
+    transform: rotate(-300deg);
 }
 
 .buttonRotate330 {
-    transform: rotate(-330);
+    transform: rotate(-330deg);
 }
 
 .buttonRotate360 {
-    transform: rotate(-360);
+    transform: rotate(-360deg);
 }

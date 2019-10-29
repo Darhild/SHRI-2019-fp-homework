@@ -1,21 +1,21 @@
 import React, { Fragment } from 'react';
-import BaseButton from '../Buttons/BaseButton';
 
-export const WithCounts = ({ count, counterDirection, onMouseOn, onClick, children }) => {
+export const withCounts = (BaseComponent) => ({ count, counterDirection, onMouseOn, onClick, children }) =>
+{
   if (counterDirection === "left") {
     return (
-      <BaseButton onMouseUp={onMouseOn} onClick={onClick} >
+      <BaseComponent onMouseUp={onMouseOn} onClick={onClick} >
         { count }&nbsp; { children }
-      </BaseButton>
+      </BaseComponent>
     )
   }  
   else {
     return (
       <Fragment>
-      {count}     
-      <BaseButton onMouseUp={onMouseOn} onClick={onClick} >
-        { children }
-      </BaseButton>
+        {count}     
+        <BaseComponent onMouseUp={onMouseOn} onClick={onClick} >
+          { children }
+        </BaseComponent>
       </Fragment>
     )
   }  

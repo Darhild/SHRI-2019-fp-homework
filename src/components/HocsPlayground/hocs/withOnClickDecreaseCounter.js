@@ -2,7 +2,7 @@ import {withHandlers} from 'recompose';
 
 export default withHandlers({
     onClick: ({setInnerColor, setOuterColor, setCount, count }) => () => {
-        setCount(count - 1);
+        setCount(--count);
 
         if(count === 0) {
             setInnerColor('orange');

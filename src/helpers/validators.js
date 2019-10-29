@@ -19,7 +19,7 @@
  * const lengthGreaterThenOne = x => x.length > 1;
  */
 
-import {replace, curry, length, tap, compose, test, allPass, anyPass} from 'ramda';
+import {replace, curry, length, compose, test, allPass, anyPass} from 'ramda';
 
 const replaceNumbers = replace(/[^0-9]/g, '');
 
@@ -42,8 +42,6 @@ const containsOnlyEng = test(/^[a-zA-Z0-9.+]+$/);
  const lengthLessThenNum = (x, {length: num}) => x < num;
  const composeLengthGreaterThenNum = compose(curry(lengthGreaterThenNum), length);
  const composeLengthLessThenNum = compose(curry(lengthLessThenNum), length);
- const composeLengthGreaterThenNumEng = compose(composeLengthGreaterThenNum, tap(console.log), length, containsOnlyEng);
- const composeLengthLessThenNumEng = compose(containsOnlyEng, composeLengthLessThenNum);
 
 /**
  * Функции для проверки наличия конкретного символа в строке
@@ -55,7 +53,7 @@ const containsOnlyEng = test(/^[a-zA-Z0-9.+]+$/);
  
 // 1. Длина < 5 и кол-во цифр > 2 шт.
 
-export const validateFieldN1 = (str) => allPass([composeLengthLessThenNum(str), composeNumsMoreThenNum(str)])({length: 5, nums: 2});
+export const validateFieldN1 = (str) => allPass([composeLengthLessThenNum, composeNumsMoreThenNum])({str, length: 5, nums: 2});
 
 // 2. Длина < 5 и кол-во цифр < 2 шт.
 export const validateFieldN2 = (str) => allPass([composeLengthLessThenNum(str), composeNumsLessThenNum(str)])({length: 5, nums: 2});
@@ -73,16 +71,13 @@ export const validateFieldN5 = (str) => allPass([composeLengthLessThenNum(str), 
 export const validateFieldN6 = (str) => anyPass([composeLengthGreaterThenNum(str), curriedContainsNum(str)])({length: 5, num: 7});
 
 // 7. Длина > 8 и кол-во цифр > 3 шт. и только англ
-export const validateFieldN7 = (str) => {
-  console.log(containsOnlyEng(str));
-  return allPass([composeLengthGreaterThenNum(str), composeNumsMoreThenNum(str)])({length: 8, nums: 3});
-}
+export const validateFieldN7 = (str) =>  allPass([composeLengthGreaterThenNum(str)])({length: 8, nums: 3}) && containsOnlyEng(str);
 
 // 8. Кол-во цифр < 5 шт. или только англ или одна из цифр равна "7"
-export const validateFieldN8 = () => false;
+export const validateFieldN8 = (str) => anyPass([composeNumsLessThenNum(str), curriedContainsNum(str)])({length: 5, num: 7}) || containsOnlyEng(str);
 
 // 9. Длина < 8, кол-во цифр > 4 шт. только англ
-export const validateFieldN9 = () => false;
+export const validateFieldN9 = (str) =>  allPass([composeLengthLessThenNum(str), composeNumsMoreThenNum(str)])({length: 8, nums: 4}) && containsOnlyEng(str);
 
 // 10. Длина < 4 или кол-во цифр > 2 шт. или только англ
-export const validateFieldN10 = () => false;
+export const validateFieldN10 = (str) => anyPass([composeLengthLessThenNum(str), composeNumsMoreThenNum(str)])({length: 4, nums: 2}) || containsOnlyEng(str);

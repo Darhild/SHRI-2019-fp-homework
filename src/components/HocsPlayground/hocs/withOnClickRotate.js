@@ -4,7 +4,7 @@ export default withHandlers({
     onClick: ({setInnerColor, setOuterColor, setDegrees, degrees }) => () => {    
         setDegrees(degrees + 30);
 
-        if(degrees === 360) {
+        if(degrees === 330) {
             const colors = ['red', 'blue', 'green', 'grey', 'orange', 'yellow', 'skyblue', '#A7CA52'];
             const num = Math.floor(Math.random() * colors.length);
             const color = colors[num];
